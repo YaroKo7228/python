@@ -15,13 +15,6 @@ ORANGE = (255, 130, 71)
 hg_score = {
   "best_score": 0
 }
-
-with open('easy.json', 'r') as data:
-    hg_score = json.load(data)
-
-def save_record():
-    with open('easy.json', 'w') as data:
-        json.dump(hg_score, data, indent = 4)
 score = 0
 
 #螢幕設計
@@ -141,25 +134,16 @@ for i in range(8):
     all_sprites.add(r)
     rocks.add(r)
 
-getTicksLastFrame = 0
+
+
 total_tick = 0
 show_init = True
 frame_index = 0
 running = True
-reset = True
 while running:
-    t = pygame.time.get_ticks()
-    # deltaTime in seconds.
-    deltaTime = (t - getTicksLastFrame) / 1000.0
-    getTicksLastFrame = t
     if not show_init:
-        total_tick += 1
-        score += deltaTime
-        print(score)
+        total_tick += 1 // 45
     if show_init:
-        if score > hg_score["best_score"]:
-            hg_score["best_score"] = score
-            save_record()
         close = draw_init()
         if close:
             break
@@ -181,10 +165,7 @@ while running:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_x:
                 show_init = True
-                score = 0
                 rock_sound.stop()
-            if event.key == pygame.K_z:
-                score = 0
 
     # 更新遊戲
     all_sprites.update()
@@ -194,7 +175,7 @@ while running:
         show_init = True
         rock_sound.stop()
     
-
+   
 
     # 畫面顯示
     screen.fill(BALCK)
