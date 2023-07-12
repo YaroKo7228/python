@@ -52,7 +52,8 @@ def draw_text(surf, text, size, x, y):
 def draw_init():
     screen.blit(background_img, (0, 0))
     draw_text(screen, "DETERMINATION_Easy", 30, WIDTH/2, HEIGHT/4) 
-    draw_text(screen, "Press \"Z\" to Start", 18, WIDTH/2, HEIGHT*3/4)
+    draw_text(screen, "Press \"Z\" to Start", 18, WIDTH/2, HEIGHT-200)
+    draw_text(screen, "Press \"X\" to Back", 18, WIDTH/2, HEIGHT*3/4)
     pygame.display.update()
     waiting = True
     while waiting:
@@ -62,8 +63,9 @@ def draw_init():
                 pygame.quit()
                 return True
             elif event.type == pygame.KEYUP:
-                waiting = False
-                return False
+                if event.key == pygame.K_z:
+                    waiting = False
+                    return False
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -211,7 +213,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_ESCAPE:
+            if event.key == pygame.K_x:
                 show_init = True
                 rock_sound.stop()
 
